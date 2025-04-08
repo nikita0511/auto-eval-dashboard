@@ -18,7 +18,7 @@ def load_specialty_data(file_path):
         
         # Extract scores from dictionary fields
         metric_columns = [
-            'accuracy', 'thoroughness', 'organised', 'synthesized',
+            'accuracy', 'thoroughness', 'organized', 'synthesized',
             'hallucination', 'speciality_appropriateness', 'usefulness',
             'fairness', 'comprehensible', 'internally_consistent', 'succinct'
         ]
@@ -26,6 +26,7 @@ def load_specialty_data(file_path):
         for col in metric_columns:
             if col in df.columns:
                 df[f'{col}_score'] = df[col].apply(lambda x: x['score'] if isinstance(x, dict) else x)
+                df[f'{col}_justification'] = df[col].apply(lambda x: x['justification'] if isinstance(x, dict) else '')
         
         # Convert action types
         if 'final_action_type' in df.columns:
@@ -46,45 +47,69 @@ def analyze_specialty(df, specialty_name):
     
     # Metrics Overview
     st.subheader("Key Metrics")
-    col1, col2, col3, col4, col5 = st.columns(5)
+    metrics = {
+        'Accuracy': 'accuracy_score',
+        'Thoroughness': 'thoroughness_score',
+        'Organization': 'organized_score',
+        'Synthesis': 'synthesized_score',
+        'Hallucination': 'hallucination_score',
+        'Specialty Appropriateness': 'speciality_appropriateness_score',
+        'Usefulness': 'usefulness_score',
+        'Fairness': 'fairness_score',
+        'Comprehensibility': 'comprehensible_score',
+        'Internal Consistency': 'internally_consistent_score',
+        'Succinctness': 'succinct_score'
+    }
     
-    with col1:
-        avg_accuracy = df['accuracy_score'].mean()
-        st.metric("Average Accuracy", f"{avg_accuracy:.2f}")
-    
-    with col2:
-        avg_thoroughness = df['thoroughness_score'].mean()
-        st.metric("Average Thoroughness", f"{avg_thoroughness:.2f}")
-    
-    with col3:
-        avg_specialty = df['speciality_appropriateness_score'].mean()
-        st.metric("Appropriate for Speciality", f"{avg_specialty:.2f}")
-
-    with col4:
-        avg_hallucination = df['hallucination_score'].mean()
-        st.metric("Hallucination", f"{avg_hallucination:.2f}")
-    
-    with col5:
-        total_evaluations = len(df)
-        st.metric("Total Evaluations", total_evaluations)
+    # Create metric columns dynamically
+    cols = st.columns(4)
+    for i, (metric_name, metric_col) in enumerate(metrics.items()):
+        if metric_col in df.columns:
+            with cols[i % 4]:
+                avg_value = df[metric_col].mean()
+                st.metric(metric_name, f"{avg_value:.2f}")
     
     # Score Distributions
     st.subheader("Score Distributions")
-    main_metrics = ['hallucination_score', 'accuracy_score', 'thoroughness_score', 'organised_score', 'synthesized_score']
     
+    # Box plot for all metrics
     fig = go.Figure()
-    for metric in main_metrics:
-        if metric in df.columns:
+    for metric_name, metric_col in metrics.items():
+        if metric_col in df.columns:
             fig.add_trace(go.Box(
-                y=df[metric],
-                name=metric.replace('_score', ''),
+                y=df[metric_col],
+                name=metric_name,
                 boxmean=True
             ))
     
     fig.update_layout(
         title=f"Score Distribution - {specialty_name}",
         yaxis_title="Score",
-        boxmode='group'
+        boxmode='group',
+        height=600
+    )
+    st.plotly_chart(fig)
+    
+    # Correlation Matrix
+    st.subheader("Metric Correlations")
+    available_metrics = [col for col in metrics.values() if col in df.columns]
+    corr = df[available_metrics].corr()
+    
+    fig = go.Figure(data=go.Heatmap(
+        z=corr,
+        x=[metric_name for metric_name, metric_col in metrics.items() if metric_col in df.columns],
+        y=[metric_name for metric_name, metric_col in metrics.items() if metric_col in df.columns],
+        text=corr.round(2),
+        texttemplate='%{text}',
+        textfont={"size": 10},
+        hoverongaps=False,
+        colorscale='RdBu'
+    ))
+    
+    fig.update_layout(
+        title=f"Correlation Matrix - {specialty_name}",
+        height=800,
+        width=800
     )
     st.plotly_chart(fig)
     
@@ -121,14 +146,15 @@ def analyze_specialty(df, specialty_name):
             metrics = {
                 'Accuracy': (tp + tn) / (tp + tn + fp + fn),
                 'Precision': tp / (tp + fp) if (tp + fp) > 0 else 0,
-                'Recall': tp / (tp + fn) if (tp + fn) > 0 else 0
+                'Recall': tp / (tp + fn) if (tp + fn) > 0 else 0,
+                'Specificity': tn / (tn + fp) if (tn + fp) > 0 else 0
             }
             metrics['F1-Score'] = 2 * (metrics['Precision'] * metrics['Recall']) / (metrics['Precision'] + metrics['Recall']) if (metrics['Precision'] + metrics['Recall']) > 0 else 0
             
             st.write("Classification Metrics:")
             metrics_df = pd.DataFrame({
                 'Metric': list(metrics.keys()),
-                'Value': list(metrics.values())
+                'Value': [f"{v:.3f}" for v in metrics.values()]
             })
             st.dataframe(metrics_df)
     
@@ -172,11 +198,49 @@ def analyze_specialty(df, specialty_name):
         st.write(f"Number of misclassified cases: {len(misclassified)}")
         
         if len(misclassified) > 0:
-            display_cols = [
-                'request_id', 'classification_probability',
-                'accuracy_score', 'thoroughness_score', 'speciality_appropriateness_score'
-            ]
+            # Show detailed analysis of misclassified cases
+            st.write("### Misclassified Cases Analysis")
+            
+            # Average scores for misclassified vs correctly classified
+            correct = df[df['classification'] == df['final_action_type_binary']]
+            
+            # Use score columns for comparison
+            score_metrics = [col for col in df.columns if col.endswith('_score')]
+            metric_names = [col.replace('_score', '').title() for col in score_metrics]
+            
+            comparison_df = pd.DataFrame({
+                'Metric': metric_names,
+                'Misclassified': [misclassified[col].mean() for col in score_metrics],
+                'Correctly Classified': [correct[col].mean() for col in score_metrics]
+            })
+            
+            fig = go.Figure(data=[
+                go.Bar(name='Misclassified', x=comparison_df['Metric'], y=comparison_df['Misclassified']),
+                go.Bar(name='Correctly Classified', x=comparison_df['Metric'], y=comparison_df['Correctly Classified'])
+            ])
+            
+            fig.update_layout(
+                title='Score Comparison: Misclassified vs Correctly Classified Cases',
+                barmode='group',
+                height=400,
+                xaxis_tickangle=-45  # Angle the x-axis labels for better readability
+            )
+            st.plotly_chart(fig)
+            
+            # Display misclassified cases
+            display_cols = ['request_id', 'classification_probability'] + score_metrics
             st.dataframe(misclassified[display_cols])
+
+    
+    # Justification Analysis
+    st.subheader("Justification Examples")
+    with st.expander("View Random Justifications"):
+        justification_cols = [col for col in df.columns if col.endswith('_justification')]
+        if justification_cols:
+            sample_row = df.sample(n=1).iloc[0]
+            for col in justification_cols:
+                metric_name = col.replace('_justification', '')
+                st.write(f"**{metric_name.title()}**: {sample_row[col]}")
     
     # Raw Data
     with st.expander("View Raw Data"):
@@ -197,7 +261,7 @@ def create_dashboard():
     st.title("Specialty-wise Note Evaluation Dashboard")
     
     # Find all specialty files
-    data_dir = Path('final_output/')
+    data_dir = Path('../test/final_output/')
     eval_files = list(data_dir.glob('auto_eval_*.json'))
     
     if not eval_files:
