@@ -7,31 +7,6 @@ from pathlib import Path
 import numpy as np
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 
-
-# Add authentication
-def check_password():
-    """Returns `True` if the user had the correct password."""
-    def password_entered():
-        if st.session_state["password"] == os.getenv("STREAMLIT_PASSWORD", "default_password"):
-            st.session_state["password_correct"] = True
-            del st.session_state["password"]
-        else:
-            st.session_state["password_correct"] = False
-
-    if "password_correct" not in st.session_state:
-        st.text_input(
-            "Password", type="password", on_change=password_entered, key="password"
-        )
-        return False
-    elif not st.session_state["password_correct"]:
-        st.text_input(
-            "Password", type="password", on_change=password_entered, key="password"
-        )
-        st.error("😕 Password incorrect")
-        return False
-    else:
-        return True
-
 def load_specialty_data(file_path):
     """Load evaluation results for a single specialty"""
     try:
@@ -245,6 +220,4 @@ def create_dashboard():
                 st.error(f"No data available for {specialty_name}")
 
 if __name__ == "__main__":
-    # Wrap your main app
-    if check_password():
-        create_dashboard()
+    create_dashboard()
