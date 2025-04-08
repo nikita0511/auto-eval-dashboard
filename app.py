@@ -261,7 +261,7 @@ def create_dashboard():
     st.title("Specialty-wise Note Evaluation Dashboard")
     
     # Find all specialty files
-    data_dir = Path('../test/final_output/')
+    data_dir = Path('final_output/')
     eval_files = list(data_dir.glob('auto_eval_*.json'))
     
     if not eval_files:
