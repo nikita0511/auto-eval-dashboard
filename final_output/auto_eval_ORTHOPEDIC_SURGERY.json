@@ -1,0 +1,1751 @@
+[
+  {
+    "hallucination": {
+      "score": 0,
+      "justification": "The note contains multiple instances of hallucinated content that could affect medical decision-making. For example, the note mentions 'continued evaluation with repeat MRI is warranted' and 'consider lumbar MRI,' but the reference context does not specify a planned MRI. Additionally, the note suggests 'Celebrex for pain' and 'surgery if conservative measures fail,' which were not explicitly discussed in the conversation. These fabrications could lead to unnecessary or inappropriate medical actions."
+    },
+    "accuracy": {
+      "score": 2,
+      "justification": "The note contains several inaccuracies and omissions. It inaccurately suggests that a repeat MRI is planned, which is not confirmed in the reference context. It also omits the specific mention of 'no circulatory issues detected' from the physical exam findings. There are also hallucinations regarding treatment plans, such as 'Celebrex for pain' and 'surgery if conservative measures fail,' which were not discussed in the conversation. These errors are of moderate clinical significance."
+    },
+    "speciality_appropriateness": {
+      "score": 4,
+      "justification": "The note is mostly appropriate for the orthopedic specialty, focusing on musculoskeletal issues such as lumbar spondylosis, radiculopathy, and gluteus medius tendinosis. However, it includes some treatment plans that were not explicitly discussed, which slightly detracts from its specialty appropriateness."
+    },
+    "usefulness": {
+      "score": 3,
+      "justification": "The note is moderately useful as it captures the main orthopedic issues and provides a structured plan. However, the inclusion of hallucinated treatment plans and the omission of certain discussed details reduce its overall usefulness, necessitating significant edits before use."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is extremely fair, using neutral and respectful language without any bias or discriminatory language based on the patient's identity. It focuses solely on the medical aspects of the patient's condition."
+    },
+    "thoroughness": {
+      "score": 3,
+      "justification": "The note covers the main components of the patient's condition but has noticeable gaps, such as the omission of discussions about creatine and circulation. It also includes hallucinated details not discussed in the conversation, affecting its thoroughness."
+    },
+    "comprehensible": {
+      "score": 4,
+      "justification": "The note is generally clear and easy to follow with minimal ambiguity. However, the inclusion of hallucinated content might create some confusion, which slightly affects comprehensibility."
+    },
+    "internally_consistent": {
+      "score": 3,
+      "justification": "The note is mostly consistent but contains some inconsistencies, such as the mention of a planned MRI and treatment plans not discussed in the conversation. These inconsistencies could require clarification."
+    },
+    "succinct": {
+      "score": 4,
+      "justification": "The note is concise and focused on the main orthopedic issues without excessive details. However, the inclusion of unnecessary hallucinated treatment plans slightly affects its succinctness."
+    },
+    "organised": {
+      "score": 4,
+      "justification": "The note is well-organized with clear sections for each aspect of the patient's condition. However, some hallucinated content and omissions slightly disrupt the overall flow."
+    },
+    "synthesized": {
+      "score": 3,
+      "justification": "The note includes clinical reasoning and a plan but is incomplete in linking discussed issues, such as creatine and circulation discussions. The inclusion of hallucinated treatment plans also affects the synthesis of information."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The review of systems section accurately captures the subjective symptoms reported by the patient without inappropriate content. It is organized by body system and reflects the conversation accurately."
+    },
+    "assessment_acceptance": {
+      "score": 0,
+      "justification": "The assessment section includes hallucinated content, such as planned MRI and treatment plans not discussed in the conversation. This affects the accuracy and reliability of the assessment."
+    },
+    "plan_acceptance": {
+      "score": 0,
+      "justification": "The plan section includes hallucinated treatments such as Celebrex and surgery, which were not discussed in the conversation, affecting its acceptance."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section accurately captures the historical details and symptoms related to the patient's condition, as discussed in the conversation."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the objective findings from the conversation without inappropriate content."
+    },
+    "request_id": "eca8a5d1-ce9a-42af-b27f-baa679b25e0c",
+    "classification": 1,
+    "classification_probability": 0.6037048315633327,
+    "final_action_type": 2,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 0,
+      "justification": "The note contains hallucinated content that could affect medical decision-making. For example, it mentions previous surgical intervention on the right knee, which is not supported by the reference context. It also references a knee replacement surgery during the COVID-19 pandemic, which was actually on the left knee according to the conversation, not the right knee."
+    },
+    "accuracy": {
+      "score": 2,
+      "justification": "The note contains inaccuracies and hallucinations, such as the mention of prior right knee surgery and complications during COVID-19, which were related to the left knee. These errors have moderate clinical significance as they could affect treatment planning."
+    },
+    "speciality_appropriateness": {
+      "score": 4,
+      "justification": "The note is well-suited to the orthopedic specialty, focusing on musculoskeletal issues, specific imaging findings, and surgical considerations. However, it includes some inaccuracies regarding past surgeries."
+    },
+    "usefulness": {
+      "score": 3,
+      "justification": "The note is moderately useful as it provides a detailed assessment and plan for the patient's knee condition. However, inaccuracies and hallucinations regarding past surgeries reduce its reliability without edits."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note uses respectful and neutral language, focusing on the patient's medical condition without displaying any bias."
+    },
+    "thoroughness": {
+      "score": 3,
+      "justification": "The note covers most relevant details but includes inaccuracies about past surgical interventions. It lacks some specific details about the patient's baseline function and previous care chronology."
+    },
+    "comprehensible": {
+      "score": 4,
+      "justification": "The note is generally clear and easy to follow, but the inaccuracies regarding past surgeries may cause some confusion."
+    },
+    "internally_consistent": {
+      "score": 3,
+      "justification": "The note mostly makes sense but has inconsistencies regarding the history of surgical interventions, which could require clarification."
+    },
+    "succinct": {
+      "score": 4,
+      "justification": "The note is concise and focused, with minimal unnecessary details, though it could benefit from removing inaccuracies."
+    },
+    "organised": {
+      "score": 4,
+      "justification": "The note is well-structured with clear sections, but the inaccuracies about past surgeries slightly disrupt the flow."
+    },
+    "synthesized": {
+      "score": 3,
+      "justification": "The note includes clinical reasoning and a plan but is incomplete and inaccurate regarding past surgeries, affecting the synthesis of the patient's condition."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The note does not contain a separate 'review of systems' section, so this is not applicable."
+    },
+    "assessment_acceptance": {
+      "score": 0,
+      "justification": "The assessment section contains inaccuracies about past surgeries, which could mislead clinical decision-making."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is mostly accurate and well-organized, making it acceptable."
+    },
+    "hpi_acceptance": {
+      "score": 0,
+      "justification": "The HPI section inaccurately reports previous surgical interventions, making it unacceptable."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the findings discussed in the conversation."
+    },
+    "request_id": "9f73608d-bd49-449d-9ab4-5decd1efd543",
+    "classification": 1,
+    "classification_probability": 0.6271415192812377,
+    "final_action_type": 2,
+    "action_type": [
+      1,
+      2,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The generated note is consistent with the information provided in the reference context and does not introduce any hallucinated content that could affect medical decision-making."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note accurately reflects the information provided in the reference context, including the patient's history, symptoms, and the plan for MRI and physical therapy. There are no inaccuracies or omissions of significant clinical importance."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedic specialty, using appropriate medical terminology and focusing on musculoskeletal issues, including the patient's hip pain and trochanteric bursitis."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing a comprehensive and detailed account of the patient's condition and the plan for further management, which is valuable for patient care."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note uses respectful and neutral language throughout, with no indication of bias or prejudice based on the patient's identity."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, covering all critical aspects of the patient's condition, history, and management plan in detail."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is extremely clear and easy to understand, with well-structured sentences and appropriate medical language."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully consistent across all sections, with no contradictions or discrepancies in the information presented."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing all pertinent details without unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is excellently organized, with information clearly conveyed in well-structured sections."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, demonstrating a clear understanding of the patient's condition and outlining a well-thought-out plan of care."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The note does not include a separate 'Review of Systems' section, which is acceptable given the focus on the orthopedic issues."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section accurately reflects the patient's condition and the clinician's plan, making it acceptable."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is detailed and accurately summarizes the care plan for the patient, making it acceptable."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section captures the historical details of the patient's condition accurately and comprehensively."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately captures the objective findings noted during the examination."
+    },
+    "request_id": "b6a991a7-8d00-4728-a24c-fa66290eb0aa",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 2,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note accurately reflects the information provided in the reference context without introducing any hallucinated content."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is factually correct and aligns with the information provided in the reference context. There are no inaccuracies, omissions, or hallucinations present."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedic specialty, using appropriate terminology and level of detail expected for this domain."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing a comprehensive overview of the patient's condition and management plan, which is valuable for patient care."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note uses respectful and inclusive language, with no bias or prejudice based on the patient's identity."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, covering all critical components in detail, including history, physical exam, imaging, and management plan."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear and easy to follow, with precise medical language and logical organization, making it highly comprehensible."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions, providing a clear and reliable narrative for clinical care."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the pertinent clinical details relevant for the specialty without unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note has excellent structure, with information clearly conveyed and organized in a logical manner."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, demonstrating a thorough understanding of the patient's condition and outlining a well-thought-out plan."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The review of systems section is not present, which is appropriate given the context, hence the default acceptance."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section is comprehensive and accurately reflects the clinician's thought process, making it acceptable."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is detailed and accurately summarizes the care plan for the patient, making it acceptable."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section is detailed and accurately captures the historical details of the patient's current complaints, making it acceptable."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the objective findings noted by the clinician, making it acceptable."
+    },
+    "request_id": "a4e3b676-d41c-485c-b45f-4bd1edfe5817",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 2,
+    "action_type": [
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The generated note accurately reflects the information provided in the reference context without introducing any hallucinated content."
+    },
+    "accuracy": {
+      "score": 4,
+      "justification": "The note is mostly accurate, capturing the patient's symptoms, history, and management plan. However, there is a minor omission regarding the specific mention of 'gelling' in the patient's symptoms, which was discussed in the conversation but not explicitly highlighted in the note."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedics specialty, using correct terminology and appropriate level of detail. It focuses on musculoskeletal issues, which is appropriate for an orthopedic surgeon."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing detailed and relevant information for patient care in an orthopedic setting. It includes a comprehensive assessment and plan that can be directly used by the clinician."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is written in a neutral and respectful manner, without any bias or prejudiced language. It focuses on the patient's medical condition without reference to identity factors."
+    },
+    "thoroughness": {
+      "score": 4,
+      "justification": "The note is very thorough, covering most relevant details, including the patient's history, symptoms, and management plan. There is minor room for improvement in detailing specific symptom descriptions like 'gelling'."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is extremely comprehensible, written in clear and formal medical language that is easy to follow."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions or inconsistencies."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing all pertinent clinical details without unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is excellently structured, with information clearly conveyed in a logical and organized manner."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, reflecting a clear understanding of the patient's condition and outlining a well-thought-out plan."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The note does not include a separate 'Review of Systems' section, which is acceptable as it was not part of the requirements."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section accurately captures the patient's condition and the clinician's thought process, making it acceptable."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is well-organized and accurately summarizes the care plan for the patient, making it acceptable."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section is detailed and accurately reflects the historical details discussed in the conversation, making it acceptable."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section captures objective findings accurately and is therefore acceptable."
+    },
+    "request_id": "ed71859d-ab94-4ccd-a826-49a38062a1c6",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 2,
+    "action_type": [
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note accurately reflects the details provided in the reference context without introducing any fabricated or contradictory information."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is factually correct and aligns with the details provided in the reference conversation, with no inaccuracies or omissions of significance."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedic specialty, using correct terminology and focusing on musculoskeletal issues, which is appropriate for the specialty."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing detailed and relevant information that would aid in patient care without requiring edits."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note uses respectful and neutral language, showing no bias or prejudice based on the patient's identity."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, covering all critical components discussed in the conversation in detail."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear and easy to follow, with minimal ambiguity, making it highly comprehensible."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions, reflecting a clear and reliable narrative."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the pertinent clinical details relevant to the orthopedic specialty."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note has excellent structure, with information clearly conveyed in a logical manner."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, outlines a well-thought-out plan, and reflects the clinician's thought process effectively."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The note does not include a review of systems section, and thus, there is no inappropriate content present in this regard."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section is detailed and accurately reflects the clinician's evaluation and thought process based on the conversation."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is comprehensive and accurately summarizes the plan of care, aligning with the conversation details."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section accurately captures and summarizes the historical details discussed in the conversation."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the objective findings noted in the conversation."
+    },
+    "request_id": "f8a06e1e-ab81-4e3b-b1b9-1627fa317dc0",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 2,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 0,
+      "justification": "The note includes several hallucinated elements, such as the mention of 'severe degeneration resembling popcorn' which was not explicitly detailed in the conversation. There is also mention of 'referral for weight management services' which was not discussed, and 'consultation with a joint specialist' which was not mentioned in the conversation. These fabrications could affect the clinical interpretation of the note."
+    },
+    "accuracy": {
+      "score": 2,
+      "justification": "The note includes several inaccuracies and omissions. Inaccuracies include the mention of 'popcorn' appearance of the joint, which was not clearly stated as a confirmed imaging finding. There is also a lack of clarity on the specific pain management strategies discussed. Omissions include the absence of specific medications tried, and the detailed impact of the patient's job on his condition."
+    },
+    "speciality_appropriateness": {
+      "score": 3,
+      "justification": "The note addresses some orthopedic-specific issues, such as osteoarthritis and obesity impacting surgical options. However, it lacks depth in discussing specific orthopedic assessments or maneuvers that are typically expected in an orthopedic note."
+    },
+    "usefulness": {
+      "score": 3,
+      "justification": "The note provides a moderate amount of useful information regarding the patient's condition and management plan. However, the presence of hallucinated content and some omissions reduces its overall utility."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is written in a fair and unbiased manner, without any language that could be considered discriminatory or judgmental."
+    },
+    "thoroughness": {
+      "score": 3,
+      "justification": "The note covers the main components but has noticeable gaps in detail, such as the specific medications tried for pain management and the detailed impact of the patient's job on his condition."
+    },
+    "comprehensible": {
+      "score": 4,
+      "justification": "The note is mostly clear and easy to follow, with some medical jargon that is appropriate for the context. There is minimal ambiguity or confusion."
+    },
+    "internally_consistent": {
+      "score": 4,
+      "justification": "The note is generally coherent and aligned across sections, but there are minor discrepancies such as the detailed description of imaging findings not fully aligning with the conversation."
+    },
+    "succinct": {
+      "score": 4,
+      "justification": "The note is concise and focused, with minimal unnecessary details. However, some sections could be trimmed further for brevity."
+    },
+    "organised": {
+      "score": 4,
+      "justification": "The note is well-structured, with information clearly conveyed in distinct sections. Minor improvements could enhance the flow further."
+    },
+    "synthesized": {
+      "score": 3,
+      "justification": "The note includes clinical reasoning and a plan but is incomplete in linking all data points. For example, the impact of weight on surgical options is noted, but the detailed reasoning for conservative management is less clear."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The note does not contain a 'review of systems' section, but no inappropriate content is present in this regard."
+    },
+    "assessment_acceptance": {
+      "score": 0,
+      "justification": "The assessment section contains hallucinated content and lacks depth in clinical reasoning, making it less acceptable as is."
+    },
+    "plan_acceptance": {
+      "score": 0,
+      "justification": "The plan section includes fabricated elements and lacks specificity in the management strategies, making it less acceptable."
+    },
+    "hpi_acceptance": {
+      "score": 0,
+      "justification": "The HPI section has inaccuracies and omissions, such as the specific impact of the patient's occupation on his condition, making it less acceptable."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the objective findings noted in the conversation and contains no inappropriate content."
+    },
+    "request_id": "31f1a216-1b19-486c-bbf4-08588ff17430",
+    "classification": 1,
+    "classification_probability": 0.6987890217425623,
+    "final_action_type": 2,
+    "action_type": [
+      2,
+      2,
+      2,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note accurately reflects the information provided in the reference context without introducing any hallucinated content."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is accurate and consistent with the information provided in the reference context. It captures all relevant details discussed in the conversation, including the patient's symptoms, history, and the plan for further evaluation with MRI."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is highly appropriate for the orthopedic specialty, focusing on musculoskeletal issues, using correct terminology, and detailing diagnostic and treatment plans specific to orthopedic conditions."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing a comprehensive and detailed account of the patient's condition, history, and plan, which is essential for managing the patient's orthopedic issues."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is written in a neutral and respectful tone, without any biased or discriminatory language. It focuses solely on the patient's medical condition."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, covering all relevant details about the patient's history, symptoms, diagnostic results, and management plan, leaving no significant gaps."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear and easy to follow, with well-structured sections that convey the patient's clinical information effectively."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is internally consistent, with no contradictions or inconsistencies between different sections."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is concise and to the point, capturing all essential details without unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is extremely well-organized, with information clearly divided into relevant sections, making it easy to navigate and understand."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note demonstrates a high level of synthesis, integrating the patient's history, symptoms, and diagnostic plans into a coherent and logical narrative."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The review of systems section is not present, but the note is otherwise complete and accurate."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section accurately reflects the patient's condition and the clinician's thought process, making it acceptable."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is detailed and accurately summarizes the plan of care, making it acceptable."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section is detailed and accurately captures the patient's history of present illness, making it acceptable."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the objective findings noted in the conversation, making it acceptable."
+    },
+    "request_id": "33f500b4-ae82-4e4b-8413-3becd09baa09",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 2,
+    "action_type": [
+      1,
+      2,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note does not introduce any content that deviates from the provided reference context. All information is aligned with the details discussed in the conversation."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note accurately captures all relevant information from the conversation, including the patient's history, current symptoms, and the clinical plan. There are no inaccuracies, omissions, or hallucinations present."
+    },
+    "speciality_appropriateness": {
+      "score": 4,
+      "justification": "The note is well-suited to orthopedics, addressing issues such as hip pain, spinal stenosis, and sciatica. It captures the relevant orthopedic details, though it could include more depth in the differential diagnosis and treatment rationale."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing a comprehensive overview of the patient's condition and the clinical plan. It includes all necessary details for patient care without any irrelevant information."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is written in a neutral and professional tone, free of any biased or discriminatory language. It focuses solely on the medical aspects of the patient's care."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, covering all critical components of the patient's history, physical exam, diagnostic results, and management plan. There are no significant gaps in documentation."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear and easy to follow, with well-structured sections and concise language. There is minimal ambiguity or confusion in the presentation of information."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions or inconsistencies. It presents a coherent narrative of the patient's clinical status and plan."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the pertinent clinical details relevant to the patient's care. There is no unnecessary verbosity or redundancy."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is excellently organized, with information clearly conveyed in well-defined sections. The structure aids in understanding the patient's clinical course."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note demonstrates complete integration of relevant information, with a well-thought-out plan reflecting the clinician's thought process. It includes differential diagnoses and outlines a clear management plan."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The Review of Systems section is not present in the note, which is appropriate given the context and focus of the note."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section accurately reflects the patient's current medical problems and the clinician's thought process, making it acceptable."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is well-organized and accurately summarizes the plan of care for the patient, making it acceptable."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section accurately captures and summarizes the historical details of the patient's current complaints, making it acceptable."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the objective findings noted during the visit, making it acceptable."
+    },
+    "request_id": "152c0534-926d-43c8-a390-cabbaa7138f7",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 2,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note does not contain any hallucinated content. All information is consistent with the reference context."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The generated note is factually accurate and aligns well with the reference context. No inaccuracies, omissions, or hallucinations were identified."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedic specialty, using correct terminology and appropriate level of detail. It focuses on musculoskeletal issues and includes relevant orthopedic assessments and plans."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing detailed and relevant information for patient care, including a comprehensive assessment and plan that aligns with orthopedic practice."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note uses respectful and empathetic language, without any bias or prejudice. It focuses solely on the clinical aspects of the patient's condition."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, covering all critical components of the patient's condition and treatment plan in detail, with no significant gaps."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear and easy to follow, with no ambiguity or confusion. It presents information in a structured and understandable manner."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions. It reflects a clear and reliable narrative for clinical care."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the pertinent clinical details relevant to the specialty without unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note has excellent structure, with well-defined sections that clearly convey information."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, considers all relevant differential diagnoses, and outlines a well-thought-out plan reflecting the clinician's thought process."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "There is no separate 'review of systems' section, but the note accurately captures symptoms in the relevant sections."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section is well-detailed and accurately reflects the clinician's evaluation and thought process."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is comprehensive and accurately summarizes the plan of care for the patient, organized by problem."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section is detailed and accurately captures the historical details of the patient's current complaints."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the objective findings noted during the visit."
+    },
+    "request_id": "279e84a8-ab21-462b-8e9b-f29a2a63af1d",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 2,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note accurately reflects the information provided in the conversation without introducing any false or misleading details."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is factually correct and accurately reflects the information from the conversation. It includes all relevant details discussed, such as the patient's history, imaging results, and treatment options."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedic specialty, using correct terminology and appropriate level of detail, focusing on the musculoskeletal issues and treatment options."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note provides a comprehensive and accurate summary of the patient's condition, history, and treatment plan, making it extremely useful for patient care."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note uses respectful and inclusive language, focusing solely on the patient's medical condition without any bias or prejudice."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, addressing all critical components discussed in the conversation, including the patient's medical history, imaging results, and treatment options."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear and easy to follow, with formal medical language appropriate for the setting, ensuring minimal ambiguity or confusion."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions, reflecting a clear and reliable narrative for clinical care."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the pertinent clinical details relevant to the patient's condition and treatment plan."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is well-structured, with information clearly conveyed in organized sections, making it easy to interpret key information."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, considering differential diagnoses and outlining a well-thought-out treatment plan."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The note does not contain a separate review of systems section, which is appropriate given the context of the visit."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section accurately reflects the clinician's evaluation of the patient's condition and the medical thought process."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is well-organized and accurately summarizes the care plan discussed during the visit."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section captures the historical details accurately and appropriately, reflecting the patient's current complaints and medical history."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately captures the objective findings noted during the visit without including inappropriate content."
+    },
+    "request_id": "f462e943-3b5a-4427-93f9-0838ba6df8a5",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 2,
+    "action_type": [
+      2,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 0,
+      "justification": "There is hallucinated content in the note. The assessment mentions 'absence of disc herniation' as a reason for not considering surgical intervention, which was not discussed in the reference context. This could potentially affect clinical decision making."
+    },
+    "accuracy": {
+      "score": 2,
+      "justification": "The note contains inaccuracies and omissions. There is an omission regarding the absence of left-sided radiculopathy on imaging, which was mentioned in the reference context. The hallucination regarding the absence of disc herniation is also present. These errors have moderate clinical significance."
+    },
+    "speciality_appropriateness": {
+      "score": 3,
+      "justification": "The note addresses orthopedic issues, but it lacks depth in some areas such as detailed musculoskeletal assessment and specific orthopedic testing, which are expected in an orthopedic specialty note."
+    },
+    "usefulness": {
+      "score": 3,
+      "justification": "The note is moderately useful. It provides a basic overview of the patient's condition and management plan, but lacks detailed clinical reasoning and specific orthopedic assessments that would add significant value."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is fair and uses neutral, respectful language without any bias or discrimination."
+    },
+    "thoroughness": {
+      "score": 3,
+      "justification": "The note covers the main components but has noticeable gaps. It omits the absence of left-sided radiculopathy and lacks detailed discussion on the patient's baseline function and activities."
+    },
+    "comprehensible": {
+      "score": 4,
+      "justification": "The note is clear and easy to follow, with minimal ambiguity. However, some sections could benefit from additional detail for clarity."
+    },
+    "internally_consistent": {
+      "score": 4,
+      "justification": "The note is mostly consistent, but there is a minor discrepancy in the assessment regarding the absence of disc herniation, which was not explicitly discussed in the reference context."
+    },
+    "succinct": {
+      "score": 4,
+      "justification": "The note is concise and focused, with minimal unnecessary details. However, some sections could be trimmed further for succinctness."
+    },
+    "organised": {
+      "score": 4,
+      "justification": "The note is well-structured and organized, with clear sections. Minor improvements could enhance flow, especially in integrating detailed assessments."
+    },
+    "synthesized": {
+      "score": 3,
+      "justification": "The note includes basic clinical reasoning but lacks comprehensive synthesis of the patient's condition, especially in linking imaging findings with the management plan."
+    },
+    "ros_acceptance": {
+      "score": 0,
+      "justification": "The Review of Systems section is not acceptable as it only includes one symptom related to the primary complaint and does not follow the expected format of listing symptoms by body systems."
+    },
+    "assessment_acceptance": {
+      "score": 0,
+      "justification": "The assessment is not acceptable due to the hallucinated content regarding the absence of disc herniation, which could affect clinical decision making."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan is acceptable as it aligns with the non-surgical management approach discussed in the reference context."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI is acceptable as it accurately captures the historical details and chronology of the patient's symptoms as discussed in the reference context."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The Physical Exam section is acceptable as it is marked 'EMPTY', which aligns with the lack of explicit physical exam findings in the reference context."
+    },
+    "request_id": "651c8a1b-03b7-4918-9d2e-075a704baae6",
+    "classification": 1,
+    "classification_probability": 0.5257094985344863,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note content is accurate and faithful to the provided reference context. There are no instances of hallucinated content that could alter the medical interpretation."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is extremely accurate, with no inaccuracies, omissions, or hallucinations. It precisely reflects the information from the reference context."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored for orthopedic surgery, focusing on musculoskeletal issues, specific treatments, and imaging results, which are highly relevant to the specialty."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing detailed and relevant information that would be valuable for patient care without requiring edits."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note uses neutral, respectful language without any bias or prejudice based on the patient's identity."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, covering all critical components discussed in the conversation, including history, assessment, and plan."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is extremely comprehensible, with clear and precise language that is easy to follow."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned and consistent across all sections, with no contradictions or inconsistencies."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the necessary details relevant to the patient's condition and treatment."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is excellently organized, with a clear structure that facilitates understanding of the patient's clinical course."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, demonstrating a thorough understanding of the patient's condition and a well-thought-out plan of care."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The review of systems accurately captures symptoms reported by the patient and is presented in an appropriate format."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section accurately reflects the clinician's assessment and plan, aligning with the conversation details."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is well-organized and accurately summarizes the plan of care discussed in the conversation."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section accurately captures the historical details of the patient's condition as discussed in the conversation."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the objective findings noted by the clinician during the visit."
+    },
+    "request_id": "c8013bcc-3839-458e-827b-ec8f4b0bbfd1",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 0,
+      "justification": "The note includes details such as the patient presenting with a left ankle injury and an avulsion fracture of the distal fibula, which are not found in the provided reference context. Additionally, the reference context mentions an injection procedure, which is not captured in the note."
+    },
+    "accuracy": {
+      "score": 1,
+      "justification": "The note contains inaccuracies: it documents an avulsion fracture and a left ankle injury, which are not mentioned in the conversation. The note also omits the injection procedure, which was discussed in the reference context."
+    },
+    "speciality_appropriateness": {
+      "score": 2,
+      "justification": "The note includes orthopedic terms like 'avulsion fracture' and 'distal fibula,' but it does not align with the provided context, which mentions an injection procedure. The focus on a fracture is not supported by the reference context."
+    },
+    "usefulness": {
+      "score": 1,
+      "justification": "The note is not useful as it provides an incorrect clinical scenario that does not match the reference context. It would mislead the end user due to the discrepancies in the patient's condition and treatment."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is written in neutral language, free from bias or prejudice based on race, gender, or other aspects of the patient's identity."
+    },
+    "thoroughness": {
+      "score": 1,
+      "justification": "The note is not thorough as it omits critical details from the conversation, such as the injection procedure, and includes fabricated content not present in the reference context."
+    },
+    "comprehensible": {
+      "score": 4,
+      "justification": "The note is generally clear and easy to follow, but the content does not align with the reference context, which affects its overall comprehensibility."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is internally consistent, as there are no contradictions within the note itself. However, it does not match the reference context."
+    },
+    "succinct": {
+      "score": 4,
+      "justification": "The note is concise and to the point, but it includes unnecessary fabricated details that are not part of the reference context."
+    },
+    "organised": {
+      "score": 4,
+      "justification": "The note is well-organized, with clear sections such as 'Assessment and Plan' and 'Office Visit Summary.' However, it does not reflect the actual patient encounter described in the reference context."
+    },
+    "synthesized": {
+      "score": 1,
+      "justification": "The note does not reflect the clinical reasoning or plan that would be expected from the reference context, as it includes fabricated details and omits the actual procedure discussed."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The note does not include a 'Review of Systems' section, which is acceptable as there was no such content in the reference context."
+    },
+    "assessment_acceptance": {
+      "score": 0,
+      "justification": "The assessment section includes fabricated details about an ankle fracture not present in the reference context."
+    },
+    "plan_acceptance": {
+      "score": 0,
+      "justification": "The plan includes treatment for a condition not discussed in the reference context, making it unacceptable."
+    },
+    "hpi_acceptance": {
+      "score": 0,
+      "justification": "The HPI includes fabricated details about an ankle injury, which are not found in the reference context."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section is acceptable as it aligns with the fabricated scenario presented in the note, but it is not relevant to the reference context."
+    },
+    "request_id": "894e2dff-3014-4b77-8143-2ac84a8e5b82",
+    "classification": 1,
+    "classification_probability": 0.8882132006382686,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note accurately reflects the information provided in the reference context without introducing any hallucinated content."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is factually correct and consistent with the reference context. There are no inaccuracies, omissions, or hallucinations present."
+    },
+    "speciality_appropriateness": {
+      "score": 3,
+      "justification": "The note addresses some specialty-specific issues like cellulitis and its management, but lacks depth in orthopedic-specific details such as musculoskeletal assessment and orthopedic testing."
+    },
+    "usefulness": {
+      "score": 4,
+      "justification": "The note provides significant value to patient care with detailed assessment and plan, although it could use minor edits to align more closely with orthopedic specialty expectations."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note uses respectful and neutral language without any bias or discrimination based on patient identity."
+    },
+    "thoroughness": {
+      "score": 4,
+      "justification": "The note includes most relevant details, covering the main issues discussed, but could be more comprehensive in detailing orthopedic-specific examination and management."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear and easy to follow, with minimal ambiguity or confusion."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions, providing a coherent narrative."
+    },
+    "succinct": {
+      "score": 4,
+      "justification": "The note is concise and focused, with minimal unnecessary details, though some sections could be slightly more concise."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is well-structured, with information clearly conveyed in a logical manner."
+    },
+    "synthesized": {
+      "score": 4,
+      "justification": "The note demonstrates clear understanding of the patient's condition and plan, but could be more detailed in linking clinical reasoning with orthopedic-specific considerations."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The 'Review of Systems' section accurately captures symptoms not directly related to the presenting complaints and is organized by body system."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The 'Assessment and Plan' section is well-structured and accurately reflects the clinician's assessment and plan as discussed in the reference context."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The 'Plan' section accurately summarizes the plan of care for the patient and is organized by problem."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The 'History of Present Illness' section captures and summarizes the historical details accurately and appropriately."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The 'Physical Exam' section accurately reflects the objective findings noted during the visit."
+    },
+    "request_id": "d5e2633f-3002-4406-b4fb-a495f49a306a",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The generated note does not introduce any hallucinated content. It accurately reflects the information provided in the reference context."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is factually correct and free from inaccuracies, omissions, or hallucinations. It accurately represents the patient's history, current condition, and plan as per the reference context."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored for orthopedic surgery, focusing on musculoskeletal issues, specific orthopedic testing, and maneuvers. It uses appropriate medical terminology and provides detailed assessments and plans relevant to the specialty."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing a comprehensive and detailed account of the patient's condition, history, and treatment plan. It adds significant value to patient care and can be used as is without edits."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is extremely fair, using respectful and inclusive language without displaying any bias or prejudice based on the patient's identity."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, covering all critical components discussed in the conversation, including history, assessment, and plan. It leaves no significant gaps in documentation."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is extremely comprehensible, written in clear and concise language. It is easy to follow and understand without any ambiguity or confusion."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions. It reflects a clear and reliable narrative for clinical care."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the pertinent clinical details relevant to the orthopedic specialty without unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is extremely organized, with a well-structured format that clearly conveys information in a logical manner."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, demonstrating a thorough understanding of the patient's condition and outlining a well-thought-out plan that reflects the clinician's thought process."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The Review of Systems section accurately captures the patient's reported symptoms related to the musculoskeletal system without introducing inappropriate content."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The Assessment section is well-written, accurately reflecting the clinician's evaluation of the patient's condition and medical thought process."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The Plan section is well-structured and accurately summarizes the plan of care for the patient, organized by problem."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section accurately captures and summarizes the historical details related to the patient's current complaints as discussed in the conversation."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The Physical Exam section accurately reflects the objective findings noted during the visit without introducing inappropriate content."
+    },
+    "request_id": "98cb8476-8c2d-4ccc-962d-4e78aa99ecea",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The generated note does not contain any hallucinated content. All information is consistent with the provided reference context."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is factually correct and free from errors. There are no inaccuracies, omissions, or hallucinations affecting clinical significance."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedic specialty, using correct terminology and appropriate level of detail, focusing on musculoskeletal issues."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing valuable information and analysis relevant to patient care in an orthopedic setting."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is extremely fair, using respectful and empathetic language without any bias or discrimination."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, addressing all critical components discussed in the encounter, leaving no significant gaps."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is extremely comprehensible, with clear and easy-to-follow language, and minimal ambiguity."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions, reflecting a clear and reliable narrative."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the pertinent clinical details relevant to the specialty without unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note has excellent structure, with information clearly conveyed and organized in a logical manner."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, outlining a well-thought-out plan that reflects the clinician's thought process."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The 'Review of Systems' section accurately captures symptoms discussed in the conversation without including inappropriate content."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The 'Assessment' section accurately reflects the clinician's assessment of the patient's condition and medical thought process."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The 'Plan' section accurately summarizes and organizes the plan of care for the patient, as discussed in the conversation."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The 'History of Present Illness' section accurately captures and summarizes the historical details discussed in the conversation."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The 'Physical Exam' section is appropriately marked as 'EMPTY' since no physical exam details were provided in the conversation."
+    },
+    "request_id": "514e37f9-ac5c-4aa8-b4df-0d473ae478f6",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note accurately reflects the details provided in the reference context, without introducing any fabricated or contradictory information."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is factually correct and aligns with the reference context. There are no inaccuracies, omissions, or hallucinations present."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to orthopedics, using appropriate medical terminology and focusing on the musculoskeletal system, specifically the fracture."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note provides comprehensive and relevant information for patient care, detailing the fracture, treatment plan, and follow-up care needed."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is written in a neutral, unbiased manner, focusing solely on the medical condition without any prejudiced language."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is thorough, covering all critical components of the patient's condition, treatment plan, and follow-up care in detail."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear, concise, and easy to understand, with appropriate medical terminology used throughout."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is internally consistent, with no contradictions present. All sections align with each other and the reference context."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is concise and to the point, capturing only the pertinent clinical details relevant to the orthopedic specialty."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is well-organized, with information clearly structured into distinct sections that facilitate understanding."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note demonstrates a thorough understanding of the patient's condition and outlines a well-thought-out plan that reflects the clinician's thought process."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The note does not contain a review of systems section, which is appropriate for the context provided."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section accurately reflects the patient's condition and the clinician's thought process, making it acceptable."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is well-organized and accurately summarizes the care plan, making it acceptable."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The note does not contain an HPI section, which is appropriate for the context provided."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately captures the objective findings noted during the examination, making it acceptable."
+    },
+    "request_id": "542f6800-9a30-4a85-bf96-42fc7ff47ad7",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note accurately reflects the details provided in the reference context without adding any fabricated or contradictory information."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note captures the patient's history and symptoms accurately as per the reference context. There are no inaccuracies, omissions, or hallucinations present."
+    },
+    "speciality_appropriateness": {
+      "score": 4,
+      "justification": "The note is well-suited for the orthopedic specialty, focusing on musculoskeletal symptoms and treatments. However, it could include more details on specific orthopedic assessments or maneuvers if they were present in the conversation."
+    },
+    "usefulness": {
+      "score": 4,
+      "justification": "The note provides significant value by summarizing the patient's history and symptoms clearly, which is useful for clinical decision-making. Minor edits may enhance its utility."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is written in a neutral, unbiased manner, focusing solely on medical details without any judgmental language."
+    },
+    "thoroughness": {
+      "score": 4,
+      "justification": "The note is thorough in capturing the patient's history and symptoms but lacks details on physical examination and imaging, which were not present in the reference context."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear and easy to understand, with well-structured sentences and appropriate medical terminology."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully consistent within itself, with no contradictions or discrepancies between sections."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is concise and focuses on the relevant clinical details without unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is well-organized, with clear sections that help in understanding the patient's clinical course."
+    },
+    "synthesized": {
+      "score": 4,
+      "justification": "The note synthesizes the patient's history and symptoms well but could benefit from more detailed clinical reasoning if additional data were available."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The 'Review of Systems' section accurately reflects the symptoms discussed in the conversation without including irrelevant information."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The note does not contain an 'Assessment' section, so it defaults to acceptance."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The note does not contain a 'Plan' section, so it defaults to acceptance."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The 'History of Present Illness' section accurately captures the patient's history as discussed in the conversation."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The note does not contain a 'Physical Exam' section, so it defaults to acceptance."
+    },
+    "request_id": "1ccf0c71-00eb-4b1d-ab5f-65410e88e2fa",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The generated note does not contain any hallucinated content. All information provided is based on the reference context and is consistent with the details discussed during the conversation."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note accurately reflects the details from the reference conversation, including the physical exam findings and imaging results. There are no inaccuracies, omissions, or hallucinations present."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedic specialty, using appropriate medical terminology and focusing on musculoskeletal issues, which is typical for this specialty."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note provides valuable information regarding the patient's condition, examination findings, and management plan, making it extremely useful for patient care."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is written in a neutral and professional tone, without any bias or prejudice based on the patient's identity."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is thorough, covering all relevant aspects of the patient's condition, including the physical exam, imaging results, and management plan. There are no significant omissions."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is clear and easy to understand, with concise and precise language that conveys the necessary information effectively."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is internally consistent, with no contradictions or discrepancies between different sections. The information flows logically and coherently."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, focusing only on pertinent clinical details without unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note is well-organized, with information clearly structured into sections that enhance readability and understanding."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note demonstrates a comprehensive understanding of the patient's condition, integrating clinical findings and a management plan effectively."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The review of systems section is not present, which is acceptable given the context and focus on the physical exam and plan."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section is effectively integrated into the plan, accurately reflecting the clinician's evaluation and thought process."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan is detailed and accurately reflects the conversation, with appropriate management strategies for the patient's condition."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI details are well-captured within the plan, accurately reflecting the historical context and patient interaction."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately captures the objective findings noted during the examination, with no inappropriate content."
+    },
+    "request_id": "3b87d74a-3334-4f58-a3b1-d35c5461cce6",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The note accurately reflects the information provided in the reference context without introducing any hallucinated content. All details about the patient's condition, treatment, and recommendations align with the conversation and provided data."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is extremely accurate, capturing all relevant details from the conversation without any inaccuracies, omissions, or hallucinations. The patient's condition, treatment, and recommendations are correctly documented."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedic specialty, using correct terminology and appropriate level of detail. It focuses on the musculoskeletal system, specifically the Colles' fracture, and includes relevant orthopedic assessments and plans."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing a comprehensive and clear summary of the patient's condition, treatment, and recommendations. It captures all necessary details for patient care and can be used as is without any edits."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note uses respectful and inclusive language, focusing solely on the medical aspects of the patient's condition without any bias or prejudice."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, addressing all critical components of the patient's condition, treatment, and recommendations in detail. It leaves no significant gaps in documentation."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is extremely comprehensible, with clear and concise language that is easy to follow. It effectively communicates the patient's condition and treatment plan."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully aligned across all sections, with no contradictions. It presents a coherent and reliable narrative for clinical care."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the pertinent clinical details relevant to the orthopedic specialty without any unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note has excellent structure, with clearly defined sections that convey information effectively. Each section is well-organized, aiding in understanding the patient's clinical course."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, outlining a well-thought-out plan that reflects the clinician's thought process. It considers all relevant aspects of the patient's condition and treatment."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The Review of Systems section accurately captures the patient's denial of pain or discomfort, as stated in the conversation, without introducing inappropriate content."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section accurately reflects the clinician's evaluation of the patient's condition and treatment plan, aligning with the conversation details."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section accurately summarizes the care plan for the patient, including cessation of the brace, exercises, and activity recommendations, as discussed in the conversation."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section accurately captures the historical details of the patient's fracture and treatment, as discussed in the conversation, without omissions or inaccuracies."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The physical exam section accurately reflects the objective findings noted by the physician during the visit, consistent with the conversation."
+    },
+    "request_id": "df8a6309-130e-4d54-ac3b-93567eaac162",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  {
+    "hallucination": {
+      "score": 1,
+      "justification": "The generated note accurately reflects the details provided in the reference context without introducing any hallucinated content. All medical details, such as the cortisone injection date and radiographic findings, align with the provided information."
+    },
+    "accuracy": {
+      "score": 5,
+      "justification": "The note is extremely accurate, capturing all relevant details from the reference context without any inaccuracies, omissions, or hallucinations. The medical details and chronology are consistent with the source material."
+    },
+    "speciality_appropriateness": {
+      "score": 5,
+      "justification": "The note is expertly tailored to the orthopedic specialty, using correct terminology and appropriate level of detail. It focuses on the patient's orthopedic issues, diagnosis, treatment plan, and relevant imaging results."
+    },
+    "usefulness": {
+      "score": 5,
+      "justification": "The note is extremely useful, providing a comprehensive and detailed account of the patient's condition and management plan. It is well-suited for clinical decision-making and patient care without requiring edits."
+    },
+    "fairness": {
+      "score": 5,
+      "justification": "The note is extremely fair, using respectful and empathetic language without any bias or discrimination. It focuses solely on the medical aspects of the patient's condition."
+    },
+    "thoroughness": {
+      "score": 5,
+      "justification": "The note is exceptionally thorough, covering all critical components such as history, assessment, and plan in detail. It leaves no significant gaps in clinical reasoning or documentation."
+    },
+    "comprehensible": {
+      "score": 5,
+      "justification": "The note is extremely comprehensible, with clear and precise language that is easy to follow. There is minimal ambiguity or confusion, making it accessible to clinicians."
+    },
+    "internally_consistent": {
+      "score": 5,
+      "justification": "The note is fully consistent across all sections, with no contradictions. It presents a clear and reliable narrative for clinical care."
+    },
+    "succinct": {
+      "score": 5,
+      "justification": "The note is highly concise, capturing only the pertinent clinical details relevant to the orthopedic specialty without any unnecessary verbosity."
+    },
+    "organised": {
+      "score": 5,
+      "justification": "The note has excellent structure, with information clearly conveyed in well-defined sections, making it easy to interpret and follow."
+    },
+    "synthesized": {
+      "score": 5,
+      "justification": "The note completely integrates all relevant information, presenting a well-thought-out plan that reflects the clinician's thought process. It demonstrates a clear understanding of the patient's condition and management strategy."
+    },
+    "ros_acceptance": {
+      "score": 1,
+      "justification": "The Review of Systems section accurately captures the patient's musculoskeletal symptoms as discussed in the conversation, without introducing inappropriate content."
+    },
+    "assessment_acceptance": {
+      "score": 1,
+      "justification": "The assessment section is detailed and accurately reflects the clinician's assessment of the patient's condition, including medical decision-making and treatment plan."
+    },
+    "plan_acceptance": {
+      "score": 1,
+      "justification": "The plan section is comprehensive and accurately summarizes the management plan for the patient's condition, organized by problem as per the conversation."
+    },
+    "hpi_acceptance": {
+      "score": 1,
+      "justification": "The HPI section is detailed and accurately captures the historical details of the patient's condition as discussed in the conversation."
+    },
+    "pe_acceptance": {
+      "score": 1,
+      "justification": "The Physical Exam section is not present, which is appropriate given the lack of physical exam details in the conversation. This is correctly handled."
+    },
+    "request_id": "87729b4f-a739-45e5-8309-de1927937bc3",
+    "classification": 0,
+    "classification_probability": 0.4197180465783284,
+    "final_action_type": 1,
+    "action_type": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  }
+]
