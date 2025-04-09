@@ -42,11 +42,67 @@ def analyze_specialty(df, specialty_name):
     """Create analysis section for a single specialty"""
     st.header(f"{specialty_name} Analysis")
     
-    # Define score columns
+    # Define score columns at the beginning
     score_columns = [col for col in df.columns if col.endswith('_score')]
     
-    # Metrics Overview
-    st.subheader("Key Metrics")
+    # Add Classification Score Overview at the top
+    st.subheader("Classification Score Overview")
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        total_notes = len(df)
+        st.metric("Total Notes", total_notes)
+    
+    with col2:
+        avg_class_prob = df['classification_probability'].mean()
+        st.metric("Average Classification Score", f"{avg_class_prob:.3f}")
+    
+    with col3:
+        avg_accept_score = df[df['final_action_type'] == 1]['classification_probability'].mean()
+        st.metric("Avg Score - Accepted Notes", f"{avg_accept_score:.3f}")
+    
+    with col4:
+        avg_reject_score = df[df['final_action_type'] == 2]['classification_probability'].mean()
+        st.metric("Avg Score - Rejected Notes", f"{avg_reject_score:.3f}")
+    
+    # Classification Score Distribution
+    fig = go.Figure()
+    
+    # Add histogram for all notes
+    fig.add_trace(go.Histogram(
+        x=df['classification_probability'],
+        name='All Notes',
+        nbinsx=30,
+        opacity=0.7
+    ))
+    
+    # Add histograms for accepted and rejected notes
+    fig.add_trace(go.Histogram(
+        x=df[df['final_action_type'] == 1]['classification_probability'],
+        name='Accepted Notes',
+        nbinsx=30,
+        opacity=0.7
+    ))
+    
+    fig.add_trace(go.Histogram(
+        x=df[df['final_action_type'] == 2]['classification_probability'],
+        name='Rejected Notes',
+        nbinsx=30,
+        opacity=0.7
+    ))
+    
+    fig.update_layout(
+        title="Classification Score Distribution",
+        xaxis_title="Classification Score",
+        yaxis_title="Count",
+        barmode='overlay',
+        height=400
+    )
+    
+    st.plotly_chart(fig)
+    
+    # Quality Metrics
+    st.subheader("Quality Metrics")
     metrics = {
         'Accuracy': 'accuracy_score',
         'Thoroughness': 'thoroughness_score',
@@ -244,7 +300,7 @@ def analyze_specialty(df, specialty_name):
     
     # Raw Data
     with st.expander("View Raw Data"):
-        display_columns = score_columns + ['request_id', 'final_action_type', 'classification', 'classification_probability']
+        display_columns = ['request_id', 'classification_probability'] + score_columns
         st.dataframe(df[display_columns])
         
         # Download button
@@ -283,7 +339,7 @@ def analyze_all_specialties(all_dfs):
         avg_reject_score = df_combined[df_combined['final_action_type'] == 2]['classification_probability'].mean()
         st.metric("Avg Score - Rejected Notes", f"{avg_reject_score:.3f}")
     
-    # Add Overall Quality Metrics Section
+    # Overall Quality Metrics Section - Now always visible
     st.subheader("Overall Quality Metrics (All Specialties)")
     
     # Get all score columns
@@ -313,49 +369,49 @@ def analyze_all_specialties(all_dfs):
             'Max': df_combined[metric_col].max()
         })
     
-    # Display detailed metrics table
-    with st.expander("View Detailed Metrics Statistics"):
-        metrics_df = pd.DataFrame(overall_metrics)
-        metrics_df = metrics_df.round(3)
-        st.dataframe(metrics_df, use_container_width=True)
-        
-        # Distribution plot for all metrics
-        fig = go.Figure()
-        for metric_col in score_columns:
-            fig.add_trace(go.Box(
-                y=df_combined[metric_col],
-                name=metric_col.replace('_score', '').title(),
-                boxmean=True
-            ))
-        
-        fig.update_layout(
-            title="Distribution of All Quality Metrics",
-            yaxis_title="Score",
-            boxmode='group',
-            height=500,
-            showlegend=True
-        )
-        st.plotly_chart(fig)
-        
-        # Correlation matrix for all metrics
-        corr_matrix = df_combined[score_columns].corr()
-        
-        fig = go.Figure(data=go.Heatmap(
-            z=corr_matrix,
-            x=[col.replace('_score', '').title() for col in score_columns],
-            y=[col.replace('_score', '').title() for col in score_columns],
-            text=np.round(corr_matrix, 2),
-            texttemplate='%{text}',
-            textfont={"size": 10},
-            colorscale='RdBu'
+    # Detailed metrics table - Now always visible
+    st.subheader("Detailed Metrics Statistics")
+    metrics_df = pd.DataFrame(overall_metrics)
+    metrics_df = metrics_df.round(3)
+    st.dataframe(metrics_df, use_container_width=True)
+    
+    # Distribution plot for all metrics
+    fig = go.Figure()
+    for metric_col in score_columns:
+        fig.add_trace(go.Box(
+            y=df_combined[metric_col],
+            name=metric_col.replace('_score', '').title(),
+            boxmean=True
         ))
-        
-        fig.update_layout(
-            title="Correlation Matrix of All Quality Metrics",
-            height=800,
-            width=800
-        )
-        st.plotly_chart(fig)
+    
+    fig.update_layout(
+        title="Distribution of All Quality Metrics",
+        yaxis_title="Score",
+        boxmode='group',
+        height=500,
+        showlegend=True
+    )
+    st.plotly_chart(fig)
+    
+    # Correlation matrix for all metrics
+    corr_matrix = df_combined[score_columns].corr()
+    
+    fig = go.Figure(data=go.Heatmap(
+        z=corr_matrix,
+        x=[col.replace('_score', '').title() for col in score_columns],
+        y=[col.replace('_score', '').title() for col in score_columns],
+        text=np.round(corr_matrix, 2),
+        texttemplate='%{text}',
+        textfont={"size": 10},
+        colorscale='RdBu'
+    ))
+    
+    fig.update_layout(
+        title="Correlation Matrix of All Quality Metrics",
+        height=800,
+        width=800
+    )
+    st.plotly_chart(fig)
     
     # Specialty-wise Comparison
     st.subheader("Specialty-wise Comparison")
