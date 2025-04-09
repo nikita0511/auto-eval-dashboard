@@ -314,7 +314,7 @@ def analyze_specialty(df, specialty_name):
 
 def analyze_all_specialties(all_dfs):
     """Create analysis section combining all specialties"""
-    st.header("Cross-Specialty Analysis")
+    # st.header("Cross-Specialty Analysis")
     
     # Combine all dataframes
     df_combined = pd.concat(all_dfs, ignore_index=True)
@@ -553,7 +553,7 @@ def analyze_all_specialties(all_dfs):
 
 def create_dashboard():
     st.set_page_config(page_title="Specialty Evaluation Dashboard", layout="wide")
-    st.title("Specialty-wise Note Evaluation Dashboard")
+    st.title("Single Note Evaluation Dashboard")
     
     # Find all specialty files
     data_dir = Path('final_output/')
