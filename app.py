@@ -256,6 +256,245 @@ def analyze_specialty(df, specialty_name):
             mime='text/csv',
         )
 
+def analyze_all_specialties(all_dfs):
+    """Create analysis section combining all specialties"""
+    st.header("Cross-Specialty Analysis")
+    
+    # Combine all dataframes
+    df_combined = pd.concat(all_dfs, ignore_index=True)
+    
+    # Overall Metrics
+    st.subheader("Overall Classification Performance")
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        total_notes = len(df_combined)
+        st.metric("Total Notes Analyzed", total_notes)
+    
+    with col2:
+        avg_class_prob = df_combined['classification_probability'].mean()
+        st.metric("Average Classification Score", f"{avg_class_prob:.3f}")
+    
+    with col3:
+        avg_accept_score = df_combined[df_combined['final_action_type'] == 1]['classification_probability'].mean()
+        st.metric("Avg Score - Accepted Notes", f"{avg_accept_score:.3f}")
+    
+    with col4:
+        avg_reject_score = df_combined[df_combined['final_action_type'] == 2]['classification_probability'].mean()
+        st.metric("Avg Score - Rejected Notes", f"{avg_reject_score:.3f}")
+    
+    # Add Overall Quality Metrics Section
+    st.subheader("Overall Quality Metrics (All Specialties)")
+    
+    # Get all score columns
+    score_columns = [col for col in df_combined.columns if col.endswith('_score')]
+    metric_names = [col.replace('_score', '').title() for col in score_columns]
+    
+    # Calculate overall averages and standard deviations
+    overall_metrics = []
+    cols = st.columns(4)  # Create 4 columns for metrics
+    
+    for i, (metric_col, metric_name) in enumerate(zip(score_columns, metric_names)):
+        avg_value = df_combined[metric_col].mean()
+        std_value = df_combined[metric_col].std()
+        
+        with cols[i % 4]:
+            st.metric(
+                metric_name,
+                f"{avg_value:.2f}",
+                f"±{std_value:.2f}"
+            )
+            
+        overall_metrics.append({
+            'Metric': metric_name,
+            'Average': avg_value,
+            'Std Dev': std_value,
+            'Min': df_combined[metric_col].min(),
+            'Max': df_combined[metric_col].max()
+        })
+    
+    # Display detailed metrics table
+    with st.expander("View Detailed Metrics Statistics"):
+        metrics_df = pd.DataFrame(overall_metrics)
+        metrics_df = metrics_df.round(3)
+        st.dataframe(metrics_df, use_container_width=True)
+        
+        # Distribution plot for all metrics
+        fig = go.Figure()
+        for metric_col in score_columns:
+            fig.add_trace(go.Box(
+                y=df_combined[metric_col],
+                name=metric_col.replace('_score', '').title(),
+                boxmean=True
+            ))
+        
+        fig.update_layout(
+            title="Distribution of All Quality Metrics",
+            yaxis_title="Score",
+            boxmode='group',
+            height=500,
+            showlegend=True
+        )
+        st.plotly_chart(fig)
+        
+        # Correlation matrix for all metrics
+        corr_matrix = df_combined[score_columns].corr()
+        
+        fig = go.Figure(data=go.Heatmap(
+            z=corr_matrix,
+            x=[col.replace('_score', '').title() for col in score_columns],
+            y=[col.replace('_score', '').title() for col in score_columns],
+            text=np.round(corr_matrix, 2),
+            texttemplate='%{text}',
+            textfont={"size": 10},
+            colorscale='RdBu'
+        ))
+        
+        fig.update_layout(
+            title="Correlation Matrix of All Quality Metrics",
+            height=800,
+            width=800
+        )
+        st.plotly_chart(fig)
+    
+    # Specialty-wise Comparison
+    st.subheader("Specialty-wise Comparison")
+    
+    # Classification scores by specialty
+    fig = go.Figure()
+    for specialty in df_combined['specialty'].unique():
+        specialty_data = df_combined[df_combined['specialty'] == specialty]
+        fig.add_trace(go.Box(
+            y=specialty_data['classification_probability'],
+            name=specialty,
+            boxmean=True
+        ))
+    
+    fig.update_layout(
+        title="Classification Score Distribution by Specialty",
+        yaxis_title="Classification Score",
+        height=500
+    )
+    st.plotly_chart(fig)
+    
+    # Average Metrics by Specialty
+    score_columns = [col for col in df_combined.columns if col.endswith('_score')]
+    avg_metrics = df_combined.groupby('specialty')[score_columns].mean()
+    
+    # Create a heatmap of average scores
+    fig = go.Figure(data=go.Heatmap(
+        z=avg_metrics.values,
+        x=[col.replace('_score', '').title() for col in score_columns],
+        y=avg_metrics.index,
+        text=np.round(avg_metrics.values, 2),
+        texttemplate='%{text}',
+        colorscale='RdYlGn'
+    ))
+    
+    fig.update_layout(
+        title="Average Quality Metrics by Specialty",
+        height=600
+    )
+    st.plotly_chart(fig)
+    
+    # Action Type Distribution
+    st.subheader("Action Type Distribution")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        # Overall distribution
+        action_counts = df_combined['final_action_type'].value_counts()
+        fig = px.pie(
+            values=action_counts.values,
+            names=action_counts.index.map({1: 'Accept', 2: 'Reject'}),
+            title="Overall Action Type Distribution"
+        )
+        st.plotly_chart(fig)
+    
+    with col2:
+        # Distribution by specialty
+        action_by_specialty = pd.crosstab(df_combined['specialty'], df_combined['final_action_type'])
+        action_by_specialty.columns = ['Accept', 'Reject']
+        fig = px.bar(
+            action_by_specialty,
+            barmode='group',
+            title="Action Types by Specialty"
+        )
+        st.plotly_chart(fig)
+    
+    # Quality Score Analysis
+    st.subheader("Quality Score Analysis")
+    
+    # Calculate average quality score
+    quality_cols = [col for col in score_columns if col != 'classification_probability']
+    df_combined['avg_quality_score'] = df_combined[quality_cols].mean(axis=1)
+    
+    # Quality score vs Classification probability
+    fig = px.scatter(
+        df_combined,
+        x='avg_quality_score',
+        y='classification_probability',
+        color='specialty',
+        title="Quality Score vs Classification Probability",
+        labels={
+            'avg_quality_score': 'Average Quality Score',
+            'classification_probability': 'Classification Probability'
+        }
+    )
+    st.plotly_chart(fig)
+    
+    # Correlation Analysis
+    st.subheader("Cross-Specialty Correlation Analysis")
+    
+    # Calculate correlations between classification probability and quality metrics
+    correlations = []
+    for specialty in df_combined['specialty'].unique():
+        specialty_data = df_combined[df_combined['specialty'] == specialty]
+        for metric in quality_cols:
+            corr = specialty_data['classification_probability'].corr(specialty_data[metric])
+            correlations.append({
+                'Specialty': specialty,
+                'Metric': metric.replace('_score', '').title(),
+                'Correlation': corr
+            })
+    
+    corr_df = pd.DataFrame(correlations)
+    corr_pivot = corr_df.pivot(index='Specialty', columns='Metric', values='Correlation')
+    
+    fig = go.Figure(data=go.Heatmap(
+        z=corr_pivot.values,
+        x=corr_pivot.columns,
+        y=corr_pivot.index,
+        text=np.round(corr_pivot.values, 2),
+        texttemplate='%{text}',
+        colorscale='RdBu'
+    ))
+    
+    fig.update_layout(
+        title="Correlation between Classification and Quality Metrics by Specialty",
+        height=600
+    )
+    st.plotly_chart(fig)
+    
+    # Summary Statistics
+    st.subheader("Summary Statistics")
+    with st.expander("View Detailed Statistics"):
+        summary_stats = df_combined.groupby('specialty').agg({
+            'classification_probability': ['mean', 'std', 'count'],
+            'avg_quality_score': ['mean', 'std']
+        }).round(3)
+        
+        st.dataframe(summary_stats)
+        
+        # Download button for summary stats
+        csv = summary_stats.to_csv()
+        st.download_button(
+            label="Download Summary Statistics",
+            data=csv,
+            file_name='summary_statistics.csv',
+            mime='text/csv',
+        )
+
 def create_dashboard():
     st.set_page_config(page_title="Specialty Evaluation Dashboard", layout="wide")
     st.title("Specialty-wise Note Evaluation Dashboard")
@@ -268,20 +507,33 @@ def create_dashboard():
         st.error("No evaluation files found!")
         return
     
-    # Create tabs for each specialty
-    specialty_names = [f.stem.replace('auto_eval_', '') for f in eval_files]
-    tabs = st.tabs(specialty_names)
+    # Load all specialty data
+    all_dfs = []
+    specialty_names = []
     
-    # Analyze each specialty in its own tab
-    for tab, specialty_file in zip(tabs, eval_files):
+    for file in eval_files:
+        specialty_name = file.stem.replace('auto_eval_', '')
+        df = load_specialty_data(file)
+        if not df.empty:
+            df['specialty'] = specialty_name
+            all_dfs.append(df)
+            specialty_names.append(specialty_name)
+    
+    # Create tabs
+    tabs = ["Overview"] + specialty_names
+    selected_tab = st.tabs(tabs)
+    
+    # Overview tab
+    with selected_tab[0]:
+        if all_dfs:
+            analyze_all_specialties(all_dfs)
+        else:
+            st.error("No data available for analysis")
+    
+    # Individual specialty tabs
+    for i, (tab, df) in enumerate(zip(selected_tab[1:], all_dfs)):
         with tab:
-            specialty_name = specialty_file.stem.replace('auto_eval_', '')
-            df = load_specialty_data(specialty_file)
-            
-            if not df.empty:
-                analyze_specialty(df, specialty_name)
-            else:
-                st.error(f"No data available for {specialty_name}")
+            analyze_specialty(df, specialty_names[i])
 
 if __name__ == "__main__":
     create_dashboard()
