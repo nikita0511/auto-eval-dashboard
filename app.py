@@ -17,12 +17,24 @@ def load_and_process_data(file_path: str):
     human_eval_data = []
     
     for sample in data:
-        specialty = sample.get('specialties',[])[0]
+        specialty = sample.get('specialties', ['Unknown'])[0]  # Get first specialty
         request_id = sample.get('request_id')
-        timestamp = pd.to_datetime(sample.get('timestamp'))  # Add timestamp processing
+        timestamp = pd.to_datetime(sample.get('timestamp'))
         
         # Process auto eval data
         if sample.get("auto_eval_info"):
+            # Add poor_note_classification acceptance class
+            if 'poor_note_classification' in sample["auto_eval_info"][0]:
+                auto_eval_data.append({
+                    'request_id': request_id,
+                    'specialty': specialty,
+                    'metric': 'poor_note_classification',
+                    'score': float(sample["auto_eval_info"][0]['poor_note_classification']['acceptance_class']),
+                    'justification': f"Probability: {sample['auto_eval_info'][0]['poor_note_classification'].get('probability', 'N/A')}",
+                    'timestamp': timestamp
+                })
+            
+            # Process other metrics including note_classification
             for score in sample["auto_eval_info"][0]["scores"]:
                 auto_eval_data.append({
                     'request_id': request_id,
@@ -34,22 +46,98 @@ def load_and_process_data(file_path: str):
                 })
         
         # Process human eval data
-        if sample.get("human_eval_info") and sample["human_eval_info"].get("metric_scores"):
-            for score in sample["human_eval_info"]["metric_scores"]:
-                if score["score"] is not None:
-                    human_eval_data.append({
-                        'request_id': request_id,
-                        'specialty': specialty,
-                        'metric': score['metric'],
-                        'score': float(score['score']),
-                        'justification': score.get('justification', ''),
-                        'timestamp': timestamp
-                    })
+        if sample.get("human_eval_info"):
+            # Add acceptance_class as both note_classification and poor_note_classification
+            if 'acceptance_class' in sample["human_eval_info"]:
+                human_score = float(sample["human_eval_info"]['acceptance_class'])
+                # Add as note_classification
+                human_eval_data.append({
+                    'request_id': request_id,
+                    'specialty': specialty,
+                    'metric': 'note_classification',
+                    'score': human_score,
+                    'justification': '',
+                    'timestamp': timestamp
+                })
+                # Add as poor_note_classification for direct comparison
+                human_eval_data.append({
+                    'request_id': request_id,
+                    'specialty': specialty,
+                    'metric': 'poor_note_classification',
+                    'score': human_score,
+                    'justification': '',
+                    'timestamp': timestamp
+                })
+            
+            # Process other metrics
+            if sample["human_eval_info"].get("metric_scores"):
+                for score in sample["human_eval_info"]["metric_scores"]:
+                    if score["score"] is not None:
+                        human_eval_data.append({
+                            'request_id': request_id,
+                            'specialty': specialty,
+                            'metric': score['metric'],
+                            'score': float(score['score']),
+                            'justification': score.get('justification', ''),
+                            'timestamp': timestamp
+                        })
     
     auto_df = pd.DataFrame(auto_eval_data)
     human_df = pd.DataFrame(human_eval_data)
     
     return auto_df, human_df
+
+# Add this function to create a specific classification comparison analysis
+def create_classification_comparison(auto_df, human_df):
+    """Create specific analysis for classification comparisons."""
+    st.subheader("Note Classification Analysis")
+    
+    # Merge auto and human classifications
+    classification_data = pd.merge(
+        auto_df[auto_df['metric'] == 'poor_note_classification'][['request_id', 'score', 'justification']],
+        human_df[human_df['metric'] == 'poor_note_classification'][['request_id', 'score']],
+        on='request_id',
+        suffixes=('_auto', '_human'),
+        how='inner'
+    )
+    
+    # Calculate agreement metrics
+    total_comparisons = len(classification_data)
+    agreements = (classification_data['score_auto'] == classification_data['score_human']).sum()
+    agreement_rate = (agreements / total_comparisons * 100) if total_comparisons > 0 else 0
+    
+    # Display metrics
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("Total Comparisons", total_comparisons)
+    with col2:
+        st.metric("Agreements", agreements)
+    with col3:
+        st.metric("Agreement Rate", f"{agreement_rate:.1f}%")
+    
+    # Create confusion matrix
+    confusion_matrix = pd.crosstab(
+        classification_data['score_human'],
+        classification_data['score_auto'],
+        margins=True
+    )
+    
+    # Display confusion matrix
+    st.subheader("Confusion Matrix")
+    st.dataframe(confusion_matrix)
+    
+    # Create scatter plot of probabilities
+    if 'probability' in ' '.join(classification_data['justification']):
+        probabilities = classification_data['justification'].str.extract(r'Probability: ([\d.]+)').astype(float)
+        fig = px.scatter(
+            x=probabilities[0],
+            y=classification_data['score_human'],
+            title='Classification Probability vs Human Decision',
+            labels={'x': 'Auto Classification Probability', 'y': 'Human Decision'}
+        )
+        st.plotly_chart(fig)
+    
+    return classification_data
 
 def create_specialty_analysis(auto_df, human_df, selected_metrics, selected_specialties):
     """Create specialty-wise analysis visualizations."""
@@ -154,12 +242,13 @@ def create_dashboard():
     ]
     
     # create tabs
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
         "Overall Analysis", 
         "Specialty Analysis", 
         "Auto vs Human Comparison",
         "Detailed Metrics",
-        "Weekly Trend Analysis"
+        "Weekly Trend Analysis",
+        "Classification Analysis"
     ])
     
     with tab1:
@@ -589,7 +678,11 @@ def create_dashboard():
         with col2:
             st.write("Human Evaluation Statistics")
             st.dataframe(weekly_human.round(3))
+    
+    with tab6:
+        classification_data = create_classification_comparison(auto_df_filtered, human_df_filtered)
 
+    
 if __name__ == "__main__":
     st.set_page_config(page_title="Note Evaluation Analytics", layout="wide")
     create_dashboard()
