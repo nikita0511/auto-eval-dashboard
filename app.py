@@ -5,6 +5,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from typing import Dict, List, Any
+from plotly.subplots import make_subplots
 
 def load_and_process_data(file_path: str):
     """Load and process the evaluation data."""
@@ -401,26 +402,97 @@ def create_dashboard():
         mask = (human_df_filtered['timestamp'].dt.date >= start_date) & (human_df_filtered['timestamp'].dt.date <= end_date)
         date_filtered_human = human_df_filtered[mask]
         
-        # Weekly aggregation
-        weekly_auto = (
+        # Volume analysis
+        st.subheader("Weekly Evaluation Volume")
+
+        # Calculate weekly volumes for unique request_ids
+        weekly_auto_volume = (
             date_filtered_auto
-            .set_index('timestamp')
-            .groupby(['metric', pd.Grouper(freq='W')])
-            ['score']
-            .agg(['mean', 'count', 'std'])
+            .groupby([pd.Grouper(key='timestamp', freq='W'), 'metric'])['request_id']
+            .nunique()
             .reset_index()
+            .rename(columns={'request_id': 'auto_count'})
         )
-        
-        weekly_human = (
+
+        weekly_human_volume = (
             date_filtered_human
-            .set_index('timestamp')
-            .groupby(['metric', pd.Grouper(freq='W')])
-            ['score']
-            .agg(['mean', 'count', 'std'])
+            .groupby([pd.Grouper(key='timestamp', freq='W'), 'metric'])['request_id']
+            .nunique()
             .reset_index()
+            .rename(columns={'request_id': 'human_count'})
         )
+
+        # Merge volumes
+        weekly_volume = pd.merge(
+            weekly_auto_volume,
+            weekly_human_volume,
+            on=['timestamp', 'metric'],
+            how='outer'
+        ).fillna(0)
+
+        # Create two subplots with shared x-axis
+        fig = make_subplots(
+            rows=2, cols=1,
+            shared_xaxes=True,
+            vertical_spacing=0.1,
+            subplot_titles=('Auto Evaluation Volume', 'Human Evaluation Volume')
+        )
+
+        # Add auto volume trace
+        fig.add_trace(
+            go.Bar(
+                name='Auto Evaluations',
+                x=weekly_volume['timestamp'],
+                y=weekly_volume['auto_count'],
+                marker_color='blue',
+                hovertemplate="Week: %{x}<br>Notes evaluated: %{y}<extra></extra>"
+            ),
+            row=1, col=1
+        )
+
+        # Add human volume trace
+        fig.add_trace(
+            go.Bar(
+                name='Human Evaluations',
+                x=weekly_volume['timestamp'],
+                y=weekly_volume['human_count'],
+                marker_color='red',
+                hovertemplate="Week: %{x}<br>Notes evaluated: %{y}<extra></extra>"
+            ),
+            row=2, col=1
+        )
+
+        # Update layout
+        fig.update_layout(
+            height=600,
+            title='Weekly Evaluation Volume',
+            showlegend=False,
+            hovermode='x unified'
+        )
+
+        # Update y-axes labels
+        fig.update_yaxes(title_text="Number of Notes", row=1, col=1)
+        fig.update_yaxes(title_text="Number of Notes", row=2, col=1)
+        fig.update_xaxes(title_text="Week", row=2, col=1)
+
+        st.plotly_chart(fig)
+
+        # Add summary statistics
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric(
+                "Average Weekly Auto Evaluations", 
+                f"{weekly_volume['auto_count'].mean():.1f}",
+                f"Total: {weekly_volume['auto_count'].sum():.0f}"
+            )
+        with col2:
+            st.metric(
+                "Average Weekly Human Evaluations", 
+                f"{weekly_volume['human_count'].mean():.1f}",
+                f"Total: {weekly_volume['human_count'].sum():.0f}"
+            )
         
-        # Trend visualization
+        # Weekly score trends
         st.subheader("Weekly Score Trends")
         
         # Metric selector for detailed trend
@@ -430,35 +502,72 @@ def create_dashboard():
             key="trend_metric"
         )
         
-        # Create trend plot
+        # Weekly aggregation with volume info
+        weekly_auto = (
+            date_filtered_auto[date_filtered_auto['metric'] == metric_for_trend]
+            .set_index('timestamp')
+            .groupby([pd.Grouper(freq='W')])
+            .agg({
+                'score': ['mean', 'std', 'count'],
+                'request_id': 'nunique'
+            })
+            .reset_index()
+        )
+        weekly_auto.columns = ['timestamp', 'mean', 'std', 'total_evals', 'unique_notes']
+        
+        weekly_human = (
+            date_filtered_human[date_filtered_human['metric'] == metric_for_trend]
+            .set_index('timestamp')
+            .groupby([pd.Grouper(freq='W')])
+            .agg({
+                'score': ['mean', 'std', 'count'],
+                'request_id': 'nunique'
+            })
+            .reset_index()
+        )
+        weekly_human.columns = ['timestamp', 'mean', 'std', 'total_evals', 'unique_notes']
+        
+        # Create trend plot with volume annotations
         fig = go.Figure()
         
         # Add auto evaluation trend
-        auto_metric_data = weekly_auto[weekly_auto['metric'] == metric_for_trend]
         fig.add_trace(go.Scatter(
-            x=auto_metric_data['timestamp'],
-            y=auto_metric_data['mean'],
+            x=weekly_auto['timestamp'],
+            y=weekly_auto['mean'],
             name='Auto Evaluation',
             mode='lines+markers',
             error_y=dict(
                 type='data',
-                array=auto_metric_data['std'],
+                array=weekly_auto['std'],
                 visible=True
-            )
+            ),
+            hovertemplate="<br>".join([
+                "Week: %{x}",
+                "Score: %{y:.2f}",
+                "Notes evaluated: %{customdata[0]}",
+                "Total evaluations: %{customdata[1]}"
+            ]),
+            customdata=np.column_stack((weekly_auto['unique_notes'], weekly_auto['total_evals']))
         ))
         
         # Add human evaluation trend
-        human_metric_data = weekly_human[weekly_human['metric'] == metric_for_trend]
         fig.add_trace(go.Scatter(
-            x=human_metric_data['timestamp'],
-            y=human_metric_data['mean'],
+            x=weekly_human['timestamp'],
+            y=weekly_human['mean'],
             name='Human Evaluation',
             mode='lines+markers',
             error_y=dict(
                 type='data',
-                array=human_metric_data['std'],
+                array=weekly_human['std'],
                 visible=True
-            )
+            ),
+            hovertemplate="<br>".join([
+                "Week: %{x}",
+                "Score: %{y:.2f}",
+                "Notes evaluated: %{customdata[0]}",
+                "Total evaluations: %{customdata[1]}"
+            ]),
+            customdata=np.column_stack((weekly_human['unique_notes'], weekly_human['total_evals']))
         ))
         
         fig.update_layout(
@@ -469,43 +578,17 @@ def create_dashboard():
         )
         st.plotly_chart(fig)
         
-        # Volume analysis
-        st.subheader("Evaluation Volume Trends")
-        
-        fig_volume = px.bar(
-            weekly_auto[weekly_auto['metric'] == metric_for_trend],
-            x='timestamp',
-            y='count',
-            title=f'Weekly Number of Evaluations for {metric_for_trend}'
-        )
-        st.plotly_chart(fig_volume)
-        
-        # Specialty-wise trends
-        st.subheader("Specialty-wise Trends")
-        
-        # Add specialty to weekly aggregation
-        specialty_weekly = (
-            date_filtered_auto
-            .set_index('timestamp')
-            .groupby(['specialty', 'metric', pd.Grouper(freq='W')])
-            ['score']
-            .mean()
-            .reset_index()
-        )
-        
-        specialty_trend = px.line(
-            specialty_weekly[specialty_weekly['metric'] == metric_for_trend],
-            x='timestamp',
-            y='score',
-            color='specialty',
-            title=f'Weekly Trends by Specialty for {metric_for_trend}'
-        )
-        st.plotly_chart(specialty_trend)
-        
-        # Statistical summary
+        # Statistical summary with volume info
         st.subheader("Weekly Statistics")
-        weekly_stats = weekly_auto[weekly_auto['metric'] == metric_for_trend].round(3)
-        st.dataframe(weekly_stats)
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.write("Auto Evaluation Statistics")
+            st.dataframe(weekly_auto.round(3))
+        
+        with col2:
+            st.write("Human Evaluation Statistics")
+            st.dataframe(weekly_human.round(3))
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Note Evaluation Analytics", layout="wide")
