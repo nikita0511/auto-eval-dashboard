@@ -12,45 +12,63 @@ def load_and_process_data(file_path: str):
     with open(file_path, 'r') as f:
         data = json.load(f)
     
-    # Convert to pandas dataframes for easier analysis
+    # Debug counter
+    poor_note_count = 0
     auto_eval_data = []
     human_eval_data = []
     
     for sample in data:
-        specialty = sample.get('specialties', ['Unknown'])[0]  # Get first specialty
+        specialty = sample.get('specialties', ['Unknown'])[0]
         request_id = sample.get('request_id')
         timestamp = pd.to_datetime(sample.get('timestamp'))
         
         # Process auto eval data
-        if sample.get("auto_eval_info"):
-            # Add poor_note_classification acceptance class
-            if 'poor_note_classification' in sample["auto_eval_info"][0]:
+        if sample.get("auto_eval_info") and len(sample["auto_eval_info"]) > 0:
+            auto_info = sample["auto_eval_info"][0]
+            
+            # Debug print for first few samples
+            if poor_note_count < 3:
+                print(f"Sample {poor_note_count + 1} auto_eval_info:", auto_info.get('poor_note_classification'))
+            
+            # Add poor_note_classification
+            if auto_info.get('poor_note_classification'):
+                poor_note_count += 1
                 auto_eval_data.append({
                     'request_id': request_id,
                     'specialty': specialty,
                     'metric': 'poor_note_classification',
-                    'score': float(sample["auto_eval_info"][0]['poor_note_classification']['acceptance_class']),
-                    'justification': f"Probability: {sample['auto_eval_info'][0]['poor_note_classification'].get('probability', 'N/A')}",
+                    'score': float(auto_info['poor_note_classification']['acceptance_class']),
+                    'justification': f"Probability: {auto_info['poor_note_classification'].get('probability', 'N/A')}",
                     'timestamp': timestamp
                 })
             
-            # Process other metrics including note_classification
-            for score in sample["auto_eval_info"][0]["scores"]:
+            # Process other metrics
+            for score in auto_info.get("scores", []):
                 auto_eval_data.append({
                     'request_id': request_id,
                     'specialty': specialty,
                     'metric': score['metric'],
                     'score': float(score['score']),
-                    'justification': score['justification'],
+                    'justification': score.get('justification', ''),
                     'timestamp': timestamp
                 })
         
         # Process human eval data
         if sample.get("human_eval_info"):
-            # Add acceptance_class as both note_classification and poor_note_classification
-            if 'acceptance_class' in sample["human_eval_info"]:
-                human_score = float(sample["human_eval_info"]['acceptance_class'])
-                # Add as note_classification
+            human_info = sample["human_eval_info"]
+            
+            # Add acceptance_class as poor_note_classification
+            if 'acceptance_class' in human_info:
+                human_score = float(human_info['acceptance_class'])
+                human_eval_data.append({
+                    'request_id': request_id,
+                    'specialty': specialty,
+                    'metric': 'poor_note_classification',
+                    'score': human_score,
+                    'justification': '',
+                    'timestamp': timestamp
+                })
+
                 human_eval_data.append({
                     'request_id': request_id,
                     'specialty': specialty,
@@ -59,85 +77,190 @@ def load_and_process_data(file_path: str):
                     'justification': '',
                     'timestamp': timestamp
                 })
-                # Add as poor_note_classification for direct comparison
-                human_eval_data.append({
-                    'request_id': request_id,
-                    'specialty': specialty,
-                    'metric': 'poor_note_classification',
-                    'score': human_score,
-                    'justification': '',
-                    'timestamp': timestamp
-                })
             
             # Process other metrics
-            if sample["human_eval_info"].get("metric_scores"):
-                for score in sample["human_eval_info"]["metric_scores"]:
-                    if score["score"] is not None:
-                        human_eval_data.append({
-                            'request_id': request_id,
-                            'specialty': specialty,
-                            'metric': score['metric'],
-                            'score': float(score['score']),
-                            'justification': score.get('justification', ''),
-                            'timestamp': timestamp
-                        })
+            for score in human_info.get("metric_scores", []):
+                if score.get("score") is not None:
+                    human_eval_data.append({
+                        'request_id': request_id,
+                        'specialty': specialty,
+                        'metric': score['metric'],
+                        'score': float(score['score']),
+                        'justification': score.get('justification', ''),
+                        'timestamp': timestamp
+                    })
     
     auto_df = pd.DataFrame(auto_eval_data)
     human_df = pd.DataFrame(human_eval_data)
     
+    print(human_df)
+    print(auto_df)
+    
     return auto_df, human_df
 
-# Add this function to create a specific classification comparison analysis
 def create_classification_comparison(auto_df, human_df):
     """Create specific analysis for classification comparisons."""
     st.subheader("Note Classification Analysis")
     
-    # Merge auto and human classifications
-    classification_data = pd.merge(
-        auto_df[auto_df['metric'] == 'poor_note_classification'][['request_id', 'score', 'justification']],
-        human_df[human_df['metric'] == 'poor_note_classification'][['request_id', 'score']],
-        on='request_id',
-        suffixes=('_auto', '_human'),
-        how='inner'
-    )
+    # Create tabs for different classification types
+    class_tab1, class_tab2 = st.tabs(["Logistic Regression Note Classification", "LLM-generated Note Classification"])
     
-    # Calculate agreement metrics
-    total_comparisons = len(classification_data)
-    agreements = (classification_data['score_auto'] == classification_data['score_human']).sum()
-    agreement_rate = (agreements / total_comparisons * 100) if total_comparisons > 0 else 0
-    
-    # Display metrics
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.metric("Total Comparisons", total_comparisons)
-    with col2:
-        st.metric("Agreements", agreements)
-    with col3:
-        st.metric("Agreement Rate", f"{agreement_rate:.1f}%")
-    
-    # Create confusion matrix
-    confusion_matrix = pd.crosstab(
-        classification_data['score_human'],
-        classification_data['score_auto'],
-        margins=True
-    )
-    
-    # Display confusion matrix
-    st.subheader("Confusion Matrix")
-    st.dataframe(confusion_matrix)
-    
-    # Create scatter plot of probabilities
-    if 'probability' in ' '.join(classification_data['justification']):
-        probabilities = classification_data['justification'].str.extract(r'Probability: ([\d.]+)').astype(float)
-        fig = px.scatter(
-            x=probabilities[0],
-            y=classification_data['score_human'],
-            title='Classification Probability vs Human Decision',
-            labels={'x': 'Auto Classification Probability', 'y': 'Human Decision'}
+    with class_tab1:
+        st.subheader("Logitic Regression Note Classification Comparison")
+        
+        # Show overall statistics first
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Total Auto Classifications", 
+                     len(auto_df[auto_df['metric'] == 'poor_note_classification']))
+        with col2:
+            st.metric("Total Human Classifications", 
+                     len(human_df[human_df['metric'] == 'poor_note_classification']))
+        with col3:
+            st.metric("Matching Pairs", 
+                     len(set(auto_df[auto_df['metric'] == 'poor_note_classification']['request_id'])
+                         .intersection(set(human_df[human_df['metric'] == 'poor_note_classification']['request_id']))))
+        
+        # Merge auto and human poor note classifications
+        poor_classification_data = pd.merge(
+            auto_df[auto_df['metric'] == 'poor_note_classification'][['request_id', 'score', 'justification', 'specialty']],
+            human_df[human_df['metric'] == 'poor_note_classification'][['request_id', 'score']],
+            on='request_id',
+            suffixes=('_auto', '_human'),
+            how='inner'
         )
-        st.plotly_chart(fig)
+        
+        if len(poor_classification_data) > 0:
+            # Calculate agreement metrics
+            total_comparisons = len(poor_classification_data)
+            agreements = (poor_classification_data['score_auto'] == poor_classification_data['score_human']).sum()
+            agreement_rate = (agreements / total_comparisons * 100)
+            
+            # Display agreement metrics
+            st.subheader("Agreement Analysis")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("Total Agreements", agreements)
+            with col2:
+                st.metric("Agreement Rate", f"{agreement_rate:.1f}%")
+            
+            # Create confusion matrix
+            confusion_matrix = pd.crosstab(
+                poor_classification_data['score_human'],
+                poor_classification_data['score_auto'],
+                margins=True
+            )
+            
+            # Display confusion matrix
+            st.subheader("Confusion Matrix")
+            st.dataframe(confusion_matrix)
+            
+            # Create probability analysis
+            if 'probability' in ' '.join(poor_classification_data['justification']):
+                st.subheader("Probability Analysis")
+                probabilities = poor_classification_data['justification'].str.extract(r'Probability: ([\d.]+)').astype(float)
+                fig = px.scatter(
+                    x=probabilities[0],
+                    y=poor_classification_data['score_human'],
+                    color=poor_classification_data['specialty'],
+                    title='Classification Probability vs Human Decision',
+                    labels={'x': 'Auto Classification Probability', 'y': 'Human Decision'}
+                )
+                st.plotly_chart(fig)
+            
+            # Specialty-wise breakdown
+            st.subheader("Specialty-wise Analysis")
+            specialty_stats = poor_classification_data.groupby('specialty').agg({
+                'request_id': 'count',
+                'score_auto': ['mean', 'std'],
+                'score_human': ['mean', 'std']
+            }).round(3)
+            st.dataframe(specialty_stats)
+            
+            # Sample data
+            st.subheader("Sample Classifications")
+            st.dataframe(poor_classification_data.head(10))
+        else:
+            st.warning("No matching poor note classification data found")
     
-    return classification_data
+    with class_tab2:
+        st.subheader("LLM-generated Note Classification")
+        
+        # Show overall statistics first
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.metric("Total Auto Classifications", 
+                     len(auto_df[auto_df['metric'] == 'note_classification']))
+        with col2:
+            st.metric("Total Human Classifications", 
+                     len(human_df[human_df['metric'] == 'note_classification']))
+        with col3:
+            st.metric("Matching Pairs", 
+                     len(set(auto_df[auto_df['metric'] == 'note_classification']['request_id'])
+                         .intersection(set(human_df[human_df['metric'] == 'note_classification']['request_id']))))
+        
+        # Merge auto and human poor note classifications
+        classification_data = pd.merge(
+            auto_df[auto_df['metric'] == 'note_classification'][['request_id', 'score', 'justification', 'specialty']],
+            human_df[human_df['metric'] == 'note_classification'][['request_id', 'score']],
+            on='request_id',
+            suffixes=('_auto', '_human'),
+            how='inner'
+        )
+        
+        if len(classification_data) > 0:
+            # Calculate agreement metrics
+            total_comparisons = len(classification_data)
+            agreements = (classification_data['score_auto'] == classification_data['score_human']).sum()
+            agreement_rate = (agreements / total_comparisons * 100)
+            
+            # Display agreement metrics
+            st.subheader("Agreement Analysis")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("Total Agreements", agreements)
+            with col2:
+                st.metric("Agreement Rate", f"{agreement_rate:.1f}%")
+            
+            # Create confusion matrix
+            confusion_matrix = pd.crosstab(
+                classification_data['score_human'],
+                classification_data['score_auto'],
+                margins=True
+            )
+            
+            # Display confusion matrix
+            st.subheader("Confusion Matrix")
+            st.dataframe(confusion_matrix)
+            
+            # Create probability analysis
+            if 'probability' in ' '.join(classification_data['justification']):
+                st.subheader("Probability Analysis")
+                probabilities = classification_data['justification'].str.extract(r'Probability: ([\d.]+)').astype(float)
+                fig = px.scatter(
+                    x=probabilities[0],
+                    y=classification_data['score_human'],
+                    color=classification_data['specialty'],
+                    title='Classification Probability vs Human Decision',
+                    labels={'x': 'Auto Classification Probability', 'y': 'Human Decision'}
+                )
+                st.plotly_chart(fig)
+            
+            # Specialty-wise breakdown
+            st.subheader("Specialty-wise Analysis")
+            specialty_stats = classification_data.groupby('specialty').agg({
+                'request_id': 'count',
+                'score_auto': ['mean', 'std'],
+                'score_human': ['mean', 'std']
+            }).round(3)
+            st.dataframe(specialty_stats)
+            
+            # Sample data
+            st.subheader("Sample Classifications")
+            st.dataframe(classification_data.head(10))
+        else:
+            st.warning("No matching note classification data found")
+
 
 def create_specialty_analysis(auto_df, human_df, selected_metrics, selected_specialties):
     """Create specialty-wise analysis visualizations."""
@@ -222,7 +345,7 @@ def create_dashboard():
     selected_metrics = st.sidebar.multiselect(
         "Select Metrics",
         options=sorted(auto_df['metric'].unique()),
-        default=['accuracy', 'hallucination', 'usefulness']
+        default=['accuracy', 'hallucination', 'usefulness', 'poor_note_classification']
     )
     
     selected_specialties = st.sidebar.multiselect(
@@ -680,7 +803,8 @@ def create_dashboard():
             st.dataframe(weekly_human.round(3))
     
     with tab6:
-        classification_data = create_classification_comparison(auto_df_filtered, human_df_filtered)
+        create_classification_comparison(auto_df_filtered, human_df_filtered)
+        
 
     
 if __name__ == "__main__":
