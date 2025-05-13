@@ -158,7 +158,7 @@ def create_dashboard():
         "Specialty Analysis", 
         "Auto vs Human Comparison",
         "Detailed Metrics",
-        "Trend Analysis"
+        "Weekly Trend Analysis"
     ])
     
     with tab1:
